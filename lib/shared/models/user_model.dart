@@ -74,4 +74,18 @@ class UserModel {
       avatarUrl: json['avatarUrl'] as String?,
     );
   }
+
+  /// Construye un UserModel desde la respuesta ProfesorMe del backend.
+  factory UserModel.fromBackendJson(Map<String, dynamic> json) {
+    final nombre = json['nombre'] as String? ?? '';
+    final apellido = json['apellido'] as String? ?? '';
+    final fullName = apellido.isNotEmpty ? '$nombre $apellido'.trim() : nombre;
+
+    return UserModel(
+      id: json['id'].toString(),
+      fullName: fullName,
+      email: json['email'] as String? ?? json['login'] as String? ?? '',
+      role: Role.instructor,
+    );
+  }
 }

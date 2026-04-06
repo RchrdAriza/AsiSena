@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../grupos/providers/grupos_provider.dart';
 
 class DashboardStats {
   final int totalStudents;
@@ -68,21 +69,23 @@ final adminDashboardProvider = FutureProvider<DashboardStats>((ref) async {
 });
 
 final instructorDashboardProvider = FutureProvider<InstructorStats>((ref) async {
-  await Future.delayed(const Duration(milliseconds: 500));
-  return const InstructorStats(
-    totalGroups: 4,
-    totalStudents: 120,
-    attendanceRate: 91.2,
-    upcomingClasses: [
-      {'subject': 'Programación Web', 'time': '8:00 AM', 'group': '2694768'},
-      {'subject': 'Base de Datos', 'time': '10:00 AM', 'group': '2694770'},
-      {'subject': 'Redes', 'time': '2:00 PM', 'group': '2694772'},
-    ],
-    recentActivity: [
-      'Asistencia registrada - Ficha 2694768',
-      'Notas publicadas - Programación Web',
-      'Reporte enviado a coordinación',
-    ],
+  final grupos = await ref.watch(gruposProvider.future);
+
+  final upcomingClasses = grupos
+      .where((g) => g.activo)
+      .map((g) => {
+            'subject': g.materia ?? g.nombre,
+            'time': '',
+            'group': g.id.toString(),
+          })
+      .toList();
+
+  return InstructorStats(
+    totalGroups: grupos.length,
+    totalStudents: 0,
+    attendanceRate: 0.0,
+    upcomingClasses: upcomingClasses,
+    recentActivity: grupos.map((g) => 'Ficha: ${g.nombre}').toList(),
   );
 });
 

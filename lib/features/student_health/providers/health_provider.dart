@@ -1,12 +1,15 @@
 import 'dart:typed_data';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../../shared/providers/auth_provider.dart';
 import '../data/health_repository.dart';
 import '../data/models/health_record.dart';
 import '../data/models/attendance_record.dart';
 import '../data/models/medical_excuse.dart';
 
-final healthRepositoryProvider = Provider<HealthRepository>((ref) => HealthRepository());
+final healthRepositoryProvider = Provider<HealthRepository>((ref) {
+  return HealthRepository(ref.watch(dioClientProvider));
+});
 
 final healthRecordProvider = FutureProvider.family<HealthRecord, String>((ref, studentId) {
   return ref.watch(healthRepositoryProvider).getHealthRecord(studentId);

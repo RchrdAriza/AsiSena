@@ -7,6 +7,6 @@ class ApiConstants {
   static const String ollamaChatEndpoint = '/api/chat';
   static const String ollamaModel = 'gemma3:4b';
 
-  // Placeholder para futuro backend
-  static const String apiBaseUrl = 'http://10.9.223.74:8080/api';
+  // Backend FastAPI (Asistencias_logica)
+  static const String apiBaseUrl = 'http://10.9.223.74:8000/api/v1';
 }

@@ -114,10 +114,9 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                       TextFormField(
                         controller: _emailController,
                         decoration: const InputDecoration(
-                          labelText: AppStrings.email,
-                          prefixIcon: Icon(Icons.email_outlined),
+                          labelText: 'Usuario',
+                          prefixIcon: Icon(Icons.person_outlined),
                         ),
-                        keyboardType: TextInputType.emailAddress,
                         validator: (value) {
                           if (value == null || value.isEmpty) return AppStrings.fieldRequired;
                           return null;
@@ -177,27 +176,11 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                             ),
                             const SizedBox(height: 8),
                             _QuickLoginChip(
-                              label: 'Admin',
-                              email: 'admin@sena.edu.co',
+                              label: 'Admin (backend)',
+                              email: 'admin',
                               onTap: () {
-                                _emailController.text = 'admin@sena.edu.co';
-                                _passwordController.text = '123456';
-                              },
-                            ),
-                            _QuickLoginChip(
-                              label: 'Instructor',
-                              email: 'instructor@sena.edu.co',
-                              onTap: () {
-                                _emailController.text = 'instructor@sena.edu.co';
-                                _passwordController.text = '123456';
-                              },
-                            ),
-                            _QuickLoginChip(
-                              label: 'Aprendiz',
-                              email: 'aprendiz@sena.edu.co',
-                              onTap: () {
-                                _emailController.text = 'aprendiz@sena.edu.co';
-                                _passwordController.text = '123456';
+                                _emailController.text = 'admin';
+                                _passwordController.text = 'admin123';
                               },
                             ),
                           ],
